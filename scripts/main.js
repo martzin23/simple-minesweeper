@@ -3,6 +3,8 @@ function main() {
     let grid = document.querySelector("footer");
     for (let i=0; i<16; i++) {
         let cell = document.createElement("div");
+        let div = document.createElement("div");
+        cell.appendChild(div);
         let types = ["empty", "flag", "mine", "unmarked", "one"];
         cell.setAttribute("class", `cell ${types[Math.floor(Math.random()*types.length)]}`);
         grid.appendChild(cell);
@@ -39,13 +41,13 @@ function generateGrid(width, height, mines) {
                 continue
             count = 0;
             if (x > 0 && grid[y][x-1] == "mine") count += 1;
-            if (x < width-1 && grid[y][x+1]== "mine") count += 1;
-            if (y > 0 && grid[y-1][x]== "mine") count += 1;
-            if (y < width-1 && grid[y+1][x]== "mine") count += 1;
-            if (x > 0 && y > 0 && grid[y][x-1]== "mine") count += 1;
-            if (x < width-1 && y < height-1 && grid[y][x-1]== "mine") count += 1;
-            if (x < width-1 && y > 0 && grid[y][x-1]== "mine") count += 1;
-            if (x > 0 && y < height-1 && grid[y][x-1]== "mine") count += 1;
+            if (x < width-1 && grid[y][x+1] == "mine") count += 1;
+            if (y > 0 && grid[y-1][x] == "mine") count += 1;
+            if (y < height-1 && grid[y+1][x] == "mine") count += 1;
+            if (x > 0 && y > 0 && grid[y-1][x-1] == "mine") count += 1;
+            if (x < width-1 && y < height-1 && grid[y+1][x+1] == "mine") count += 1;
+            if (x < width-1 && y > 0 && grid[y-1][x+1] == "mine") count += 1;
+            if (x > 0 && y < height-1 && grid[y+1][x-1] == "mine") count += 1;
 
             grid[y][x] = numbers[count];
         }
@@ -59,6 +61,8 @@ function fillGrid(grid) {
     for (let y=0; y<grid.length; y++) {
     for (let x=0; x<grid[y].length; x++) {
             let cell = document.createElement("div");
+            let div = document.createElement("div");
+            cell.appendChild(div);
             cell.setAttribute("class", `cell ${grid[y][x]}`);
             grid_element.appendChild(cell);
         }
