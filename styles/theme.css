@@ -1,0 +1,18 @@
+:root {
+    font-size: 16px;
+    --pixel: 3px;
+
+    --light: #585858;
+    --medium: #454545;
+    --dark: #191919;
+    --darken: rgba(0, 0, 0, 0.25);
+    --highlight: rgba(255, 255, 255, 0.25);
+
+    --green-light: #00FF90;
+    --green-medium: #00A576;
+    --green-dark: #00685A;
+
+    --red-light: #FF005D;
+    --red-medium: #c0026d;
+    --red-dark: #6f0259;
+}

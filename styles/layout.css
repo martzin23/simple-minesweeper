@@ -1,0 +1,41 @@
+
+body {
+    background-color: var(--dark);
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    
+    background-color: var(--medium);
+    border: var(--pixel) solid var(--light);
+    outline: var(--pixel) solid black;
+}
+
+main>* {
+    padding: calc(4 * var(--pixel));
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: calc(2 * var(--pixel));
+
+    background-color: var(--darken);
+    outline: var(--pixel) solid rgba(0, 0, 0, 0.25);
+}
+
+footer {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: var(--pixel);
+    align-items: center;
+    justify-content: center;
+}

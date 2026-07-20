@@ -1,0 +1,139 @@
+
+* {
+    color: white;
+    padding: 0rem;
+    margin: 0rem;
+    box-sizing: border-box;
+    user-select: none;
+    font-family: minecraft;
+}
+
+.ore {
+    border: var(--pixel) solid black;
+    background-color: var(--dark);
+    padding-bottom: var(--pixel);
+}
+
+.ore:hover {
+    outline: var(--pixel) solid white;
+}
+
+.ore:active {
+    margin-top: var(--pixel);
+    padding-bottom: 0px;
+}
+
+.ore>* {
+    border: var(--pixel) solid var(--light);
+    background-color: var(--medium);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--pixel);
+}
+
+img {
+    width: calc(10 * var(--pixel));
+    image-rendering: pixelated;
+}
+
+samp {
+    background-color: var(--darken);
+    border-top: var(--pixel) solid var(--dark);
+    border-left: var(--pixel) solid var(--dark);
+    /* border: var(--pixel) solid var(--dark); */
+    padding: 0px calc(2 * var(--pixel)) 0px calc(2 * var(--pixel));
+}
+
+p {
+    padding: 0px calc(2 * var(--pixel)) 0px calc(2 * var(--pixel));
+}
+
+.cell {
+    width: calc(8 * var(--pixel));
+    height: calc(8 * var(--pixel));
+    background-color: var(--darken);
+}
+
+.cell.mine:hover, .cell.flag:hover, .cell.uncovered:hover {
+    outline: var(--pixel) solid white;
+}
+
+.cell::after {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-shadow: 2px 2px 0px black;
+}
+
+.cell.one::after {
+    color: hsl(165, 50%, 52%);
+    content: "1";
+}
+
+.cell.two::after {
+    color: hsl(240, 50%, 66%);
+    content: "2";
+}
+
+.cell.three::after {
+    color: hsl(268, 50%, 47%);
+    content: "3";
+}
+
+.cell.four::after {
+    color: hsl(285, 50%, 52%);
+    content: "4";
+}
+
+.cell.five::after {
+    color: hsl(73, 50%, 57%);
+    content: "5";
+}
+
+.cell.six::after {
+    color: hsl(36, 50%, 47%);
+    content: "6";
+}
+
+.cell.seven::after {
+    color: hsl(330, 50%, 60%);
+    content: "7";
+}
+
+.cell.eight::after {
+    color: hsl(0, 50%, 47%);
+    content: "8";
+}
+
+.cell.mine, .cell.flag, .cell.uncovered {
+    background-color: var(--light);
+    border-bottom: var(--pixel) solid var(--dark);
+    border-right: var(--pixel) solid var(--dark);
+}
+
+.cell.mine>div, .cell.flag>div, .cell.uncovered>div {
+    width: 100%;
+    height: 100%;
+    border-top: var(--pixel) solid var(--highlight);
+    border-left: var(--pixel) solid var(--highlight);
+}
+
+.cell.flag{
+    background-image: url(../images/flag.png);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 2px 2px;
+}
+
+.cell.mine{
+    background-image: url(../images/mine.png);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 2px 3px;
+}
