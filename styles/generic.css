@@ -108,3 +108,14 @@ p {
 }
 
 /* ------------------------------------------------------ */
+
+
+@media screen and (max-width: 1024px) {
+    button:hover {
+        outline: none;
+    }
+
+    .clickable:hover {
+        outline: none;
+    }
+}
