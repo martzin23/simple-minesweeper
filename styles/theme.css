@@ -16,3 +16,7 @@
     --red-medium: #c0026d;
     --red-dark: #6f0259;
 }
+
+.hidden {
+    display: none;
+}

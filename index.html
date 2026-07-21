@@ -8,65 +8,82 @@
     <link rel="stylesheet" href="styles/font.css"/>
     <link rel="stylesheet" href="styles/layout.css"/>
     <link rel="stylesheet" href="styles/theme.css"/>
+    <link rel="stylesheet" href="styles/flex.css"/>
     <script defer src="scripts/main.js"></script>
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
 </head>
 <body>
     <main>
         <header>
-            <button id="reset" class="clickable">
+            <samp>
                 <div>
-                    <p>Reset</p>
+                    <div>
+                        <img src="images/mine.png" alt="">
+                        <p id="mines">67</p>
+                    </div>
                 </div>
-            </button>
-            <!-- <button>
-                <div>
-                    <img src="images/maximize.png" alt="">
-                </div>
-            </button> -->
-            <!-- <button>
+            </samp>
+            <button id="reset">
                 <div>
                     <img src="images/reset.png" alt="">
                 </div>
-            </button> -->
-            <!-- <button>
+            </button>
+            <button id="maximize">
+                <div>
+                    <img src="images/maximize.png" alt="">
+                </div>
+            </button>
+            <button id="minimize" class="hidden">
                 <div>
                     <img src="images/minimize.png" alt="">
                 </div>
-            </button> -->
-            <button>
-                <div>
-                    <p>Github</p>
-                </div>
-                <a href="https://github.com/martzin23?tab=repositories"></a>
             </button>
-            <samp>
-                <div>
-                    <img src="images/mine_2.png" alt="">
-                    <p id="mines">67</p>
-                </div>
-            </samp>
         </header>
-        <footer>
-            <!-- <div class="cell uncovered">
-                <div></div>
-            </div>
-            <div class="cell empty"></div>
-            <div class="cell one"></div>
-            <div class="cell two"></div>
-            <div class="cell three"></div>
-            <div class="cell four"></div>
-            <div class="cell five"></div>
-            <div class="cell six"></div>
-            <div class="cell seven"></div>
-            <div class="cell eight"></div>
-            <div class="cell flag">
-                <div></div>
-            </div>
-            <div class="cell mine">
-                <div></div>
-            </div> -->
-        </footer>
+        <div id="grid">
+        </div>
+        <div id="menu">
+            <hr>
+            <li id="size">
+                <p>Grid</p>
+                <button id="grid_small">
+                    <div>
+                        <p>Small</p>
+                    </div>
+                </button>
+                <button id="grid_large">
+                    <div>
+                        <p>Large</p>
+                    </div>
+                </button>
+                <button id="grid_full">
+                    <div>
+                        <p>Full</p>
+                    </div>
+                </button>
+            </li>
+            <hr>
+            <li id="mines">
+                <p>Mines</p>
+                <button id="mines_few">
+                    <div>
+                        <p>Few</p>
+                    </div>
+                </button>
+                <button class="selected" id="mines_lot">
+                    <div>
+                        <p>A lot</p>
+                    </div>
+                </button>
+            </li>
+            <hr>
+            <li class="hidden">
+                <button id="start" class="clickable">
+                    <div>
+                        <p>Start</p>
+                    </div>
+                </button>
+            </li>
+        </div>
     </main>
 </body>
 </html>

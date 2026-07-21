@@ -2,6 +2,12 @@ let _total = 0;
 let _mines = 0;
 let _uncovered = 0;
 let _grid = null;
+const settings = {
+    "grid_small" : [8, 12],
+    "grid_large" : [16, 24],
+    "grid_few" : 0.10,
+    "grid_lot" : 0.25,
+};
 
 class Cell {
     constructor(id, value, element) {
@@ -11,7 +17,6 @@ class Cell {
         this.value = value;
         this.revealed = false;
         this.flagged = false;
-        this.flooded = false;
 
         this.pointerdown_handler = (event) => {
             let pointerup_handler = (event) => {
@@ -50,8 +55,8 @@ class Cell {
         if (this.value == "mine" && user)
             this.floodFill((cell) => {cell.flashRed(); cell.reveal(false)});
             // iterateGrid((cell) => {cell.flashRed(); cell.reveal(false)});
-        else if (this.value == "zero" && user)
-            this.floodFill((cell) => {cell.reveal(false); cell.flashGreen();}, {}, (cell) => {return cell.value == "zero"});
+        // else if (this.value == "zero" && user)
+        //     this.floodFill((cell) => {cell.reveal(false); cell.flashGreen();}, (cell) => {return cell.value == "zero"});
         else if (_uncovered == _total - _mines)
             iterateGrid((cell) => {
                 cell.flashGreen(); 
@@ -67,17 +72,40 @@ class Cell {
         this.flagged = !this.flagged;
     }
 
-    floodFill(lambda = (cell) => {}, filled = {}, condition = (cell) => true) {
-        // filled[this.id] = true;
-        this.flooded = true;
+    floodFill(lambda = (cell) => {}, condition = (cell) => true) {
+        let current = this.neighbours;
         lambda(this);
-        if (!condition(this)) return;
-        for (let i=0; i<this.neighbours.length; i++) {
-            let n = this.neighbours[i];
-            // if (!!n && filled[n.id] !== true)
-            if (!!n && !n.flooded)
-                setTimeout(() => {n.floodFill(lambda, filled, condition)}, 500);
+        let filled = {};
+        filled[this.id] = this;
+        let next = {};
+        let depth = 0;
+        let counter = 0;
+        
+        let floodfill_step = () => {
+            console.log(countNonNull(current), current, filled);
+            if (depth > 10) return;
+            if (current.length == 0) return;
+            current.forEach((c, i) => {
+                if (!c) return;
+                lambda(c);
+                filled[c.id] = c;
+                if (!condition(c)) return;
+                console.log(c.neighbours)
+                c.neighbours.forEach((n, i) => {
+                    if (!!n && !!filled[n.id])
+                        next[n.id] = n;
+                });
+            });
+            // current = next;
+            current = Object.values(next);
+            next = {};
+            depth++;
+            // if (depth < 5)
+            //     setTimeout(floodfill_step, 500);
+            // else
+                floodfill_step();
         }
+        setTimeout(floodfill_step, 500);
     }
 
     flashGreen() {
@@ -132,7 +160,7 @@ function generateGrid(width, height, mines) {
             if (x > 0 && y < height-1 && grid_values[y+1][x-1] == "mine") count += 1;
 
             grid_values[y][x] = numbers[count];
-        }
+        } 
     }
     return grid_values;
 }
@@ -141,7 +169,7 @@ function fillGrid(grid_values) {
 
     const height = grid_values.length;
     const width = grid_values[0].length;
-    let grid_element = document.querySelector("footer");
+    let grid_element = document.getElementById("grid");
     grid_element.innerHTML = "";
     let grid_instances = [];
 
@@ -192,5 +220,81 @@ function iterateGrid(func = (cell) => {}) {
             func(_grid[y][x]);
 }
 
-fillGrid(generateGrid(20, 20, 10));
-document.getElementById("reset").addEventListener("click", (event) => {fillGrid(generateGrid(5, 5, 5));});
+function countNonNull(array) {
+    let counter = 0;
+    array.forEach((x,i) => {if (!!x) counter++;});
+    return counter;
+}
+
+function toggleFullscreen() {
+    if (isFullscreen()) {
+        if (document.exitFullscreen)
+            document.exitFullscreen().catch(() => {});
+        else if (document.webkitExitFullscreen)
+            document.webkitExitFullscreen().catch(() => {});
+        else if (document.msExitFullscreen)
+            document.msExitFullscreen().catch(() => {});
+    } else {
+        if (document.documentElement.requestFullscreen)
+            document.documentElement.requestFullscreen();
+        else if (document.documentElement.webkitRequestFullscreen)
+            document.documentElement.webkitRequestFullscreen();
+        else if (eldocument.documentElementem.msRequestFullscreen)
+            document.documentElement.msRequestFullscreen();
+    }
+}
+
+function isFullscreen() {
+    return (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) !== undefined;
+}
+
+function buttonSetup() {
+    const menu_element = document.getElementById("menu");
+    const grid_element = document.getElementById("grid");
+    const reset_button = document.getElementById("reset");
+    reset_button.addEventListener("click", (event) => {
+        menu_element.classList.add("hidden");
+        grid_element.classList.add("hidden");
+    });
+    const maximize_button = document.getElementById("maximize");
+    maximize_button.addEventListener("click", (event) => {toggleFullscreen();});
+    const minimize_button = document.getElementById("minimize");
+    minimize_button.addEventListener("click", (event) => {toggleFullscreen();});
+    const start_button = document.getElementById("start");
+    start_button.addEventListener("click", (event) => {
+        fillGrid(generateGrid(5, 5, 5));
+        menu_element.classList.add("hidden");
+        grid_element.classList.remove("hidden");
+    });
+    
+    ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach((eventType) => {
+        document.addEventListener(eventType, () => {
+            if (!isFullscreen()) {
+                minimize_button.classList.add("hidden");
+                maximize_button.classList.remove("hidden");
+            }
+            else if (isFullscreen()) {
+                minimize_button.classList.remove("hidden");
+                maximize_button.classList.add("hidden");
+            }
+        })
+    });
+
+    Array.prototype.subarray = function(start, end) {
+        if (!end) end = this.length - 1;
+        return this.splice(start, end);
+    }
+
+    let grid_selector = document.getElementById("size");
+    let grid_buttons = Array.from(document.getElementById("size").children).subarray(1);
+    grid_buttons.forEach((x) => {
+        x.addEventListener("click", (event) => {
+            
+        });
+    });
+    console.log(grid_buttons);
+    let mines_selector = document.getElementById("mines");
+}
+
+fillGrid(generateGrid(10, 10, 25));
+buttonSetup();

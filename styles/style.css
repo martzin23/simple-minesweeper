@@ -38,12 +38,27 @@ button:hover {
     cursor: pointer;
 }
 
+button.selected>div {
+    /* border-color: var(--green-medium);
+    background-color: var(--green-dark); */
+    border-color: var(--red-medium);
+    background-color: var(--red-dark);
+}
+
+/* ------------------------------------------------------ */
+
+
 .clickable:hover {
     outline: var(--pixel) solid white;
     cursor: pointer;
 }
 
-/* ------------------------------------------------------ */
+hr {
+    border: none;
+    border-top: var(--pixel) solid var(--light);
+    height: 0px;
+    width: 100%;
+}
 
 a:empty {
     z-index: 100;
@@ -60,12 +75,19 @@ img {
 }
 
 samp {
-    background-color: var(--darken);
-    border-top: var(--pixel) solid black;
-    border-left: var(--pixel) solid black;
+    border: var(--pixel) solid black;
 }
 
 samp>div {
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--darken);
+    /* border-top: var(--pixel) solid var(--dark);
+    border-left: var(--pixel) solid var(--dark); */
+}
+
+samp>div>div {
     width: 100%;
     height: 100%;
 
@@ -73,8 +95,10 @@ samp>div {
     justify-content: center;
     align-items: center;
     
-    border-bottom: var(--pixel) solid var(--light);
-    border-right: var(--pixel) solid var(--light);
+    /* border-bottom: var(--pixel) solid var(--light);
+    border-right: var(--pixel) solid var(--light); */
+    border: var(--pixel) solid var(--medium);
+    /* border-bottom: var(--pixel) solid var(--medium); */
 }
 
 p {
@@ -91,6 +115,7 @@ p {
     width: calc(8 * var(--pixel));
     height: calc(8 * var(--pixel));
     background-color: var(--darken);
+    image-rendering: pixelated;
 
     animation-fill-mode: forwards;
     animation-duration: 1s;
@@ -152,7 +177,7 @@ p {
     background-image: url(../images/mine.png);
     background-size: calc(7 * var(--pixel));
     background-repeat: no-repeat;
-    background-position: calc(0.5 * var(--pixel)) var(--pixel);
+    background-position: calc(0.5 * var(--pixel));
 }
 
 .cell.uncovered {
