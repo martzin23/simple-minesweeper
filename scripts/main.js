@@ -55,7 +55,7 @@ class Cell {
             this.floodFill((cell) => {
                 cell.reveal(false); 
                 cell.flashGreen();
-            }, (cell) => {return cell.value == "zero"});
+            }, (cell) => {return cell.value == "zero"}, true);
         else if (_uncovered == _total - _mines)
             iterateGrid((cell) => {
                 cell.flashGreen(); 
@@ -97,7 +97,6 @@ class Cell {
                 c.neighbours.forEach((n, i) => {
                     if (i%2 != 0 && !diagonal) return;
                     if (!!n && !filled.includes(n.id)) {
-                        console.log(!!filled[n.id], filled, n.id);
                         next[n.id] = n;
                     }
                 });
