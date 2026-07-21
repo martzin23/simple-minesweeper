@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Minesweeper</title>
-    <link rel="stylesheet" href="styles/style.css"/>
-    <link rel="stylesheet" href="styles/font.css"/>
     <link rel="stylesheet" href="styles/layout.css"/>
-    <link rel="stylesheet" href="styles/theme.css"/>
+    <link rel="stylesheet" href="styles/cell.css"/>
+    <link rel="stylesheet" href="styles/generic.css"/>
+    <link rel="stylesheet" href="styles/variables.css"/>
+    <link rel="stylesheet" href="styles/font.css"/>
     <link rel="stylesheet" href="styles/flex.css"/>
     <script defer src="scripts/main.js"></script>
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
@@ -20,7 +21,7 @@
                 <div>
                     <div>
                         <img src="images/mine.png" alt="">
-                        <p id="mines">67</p>
+                        <p id="mines">0</p>
                     </div>
                 </div>
             </samp>
@@ -46,12 +47,12 @@
             <li>
                 <p>Grid</p>
                 <div class="row gap-medium" id="switch_size">
-                    <button value="[8,12]" class="selected">
+                    <button value="[8,10]" class="selected">
                         <div>
                             <p>Small</p>
                         </div>
                     </button>
-                    <button value="[16, 20]">
+                    <button value="[10, 16]">
                         <div>
                             <p>Large</p>
                         </div>
@@ -67,14 +68,19 @@
             <li>
                 <p>Mines</p>
                 <div class="row gap-medium" id="switch_mines">
-                    <button value="0.1" class="selected">
+                    <button value="0.1">
                         <div>
                             <p>Few</p>
                         </div>
                     </button>
+                    <button value="0.175" class="selected">
+                        <div>
+                            <p>Moderate</p>
+                        </div>
+                    </button>
                     <button value="0.25">
                         <div>
-                            <p>A lot</p>
+                            <p>Many</p>
                         </div>
                     </button>
                 </div>

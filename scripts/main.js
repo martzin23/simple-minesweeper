@@ -2,12 +2,6 @@ let _total = 0;
 let _mines = 0;
 let _uncovered = 0;
 let _grid = null;
-const settings = {
-    "grid_small" : [8, 12],
-    "grid_large" : [16, 24],
-    "grid_few" : 0.10,
-    "grid_lot" : 0.25,
-};
 
 class Cell {
     constructor(id, value, element) {
@@ -49,20 +43,32 @@ class Cell {
         if (this.flagged && user) return;
         this.element.classList.remove("uncovered");
         this.element.classList.remove("clickable");
+        this.element.classList.remove("flag");
         this.element.removeEventListener("pointerdown", this.pointerdown_handler);
         this.revealed = true;
         if (user) _uncovered++;
         if (this.value == "mine" && user)
-            this.floodFill((cell) => {cell.flashRed(); cell.reveal(false)});
-            // iterateGrid((cell) => {cell.flashRed(); cell.reveal(false)});
-        // else if (this.value == "zero" && user)
-        //     this.floodFill((cell) => {cell.reveal(false); cell.flashGreen();}, (cell) => {return cell.value == "zero"});
+            // this.floodFill((cell) => {
+            //     cell.reveal(false)
+            //     cell.flashRed(); 
+            // });
+            iterateGrid((cell) => {
+                cell.reveal(false);
+                cell.flashRed(); 
+            });
+        else if (this.value == "zero" && user)
+            this.floodFill((cell) => {
+                cell.reveal(false); 
+                cell.flashGreen();
+            }, (cell) => {return cell.value == "zero"});
         else if (_uncovered == _total - _mines)
             iterateGrid((cell) => {
                 cell.flashGreen(); 
                 cell.element.removeEventListener("pointerdown", cell.pointerdown_handler); 
                 cell.element.classList.remove("clickable");
             });
+        else
+            this.flashGreen();
     }
 
     toggleFlag() {
@@ -70,6 +76,7 @@ class Cell {
         let counter_element = document.getElementById("mines");
         counter_element.innerText = parseInt(counter_element.innerText) + (this.flagged ? 1 : -1);
         this.flagged = !this.flagged;
+        this.flashWhite();
     }
 
     floodFill(lambda = (cell) => {}, condition = (cell) => true) {
@@ -79,7 +86,7 @@ class Cell {
         filled[this.id] = this;
         let next = {};
         let depth = 0;
-        let counter = 0;
+        // let counter = 0;
         
         let floodfill_step = () => {
             console.log(countNonNull(current), current, filled);
@@ -90,10 +97,12 @@ class Cell {
                 lambda(c);
                 filled[c.id] = c;
                 if (!condition(c)) return;
-                console.log(c.neighbours)
+                // console.log(c.neighbours)
                 c.neighbours.forEach((n, i) => {
-                    if (!!n && !!filled[n.id])
+                    if (!!n && !!filled[n.id]) {
+                        console.log(!!filled[n.id], filled, n.id);
                         next[n.id] = n;
+                    }
                 });
             });
             // current = next;
@@ -116,6 +125,17 @@ class Cell {
     flashRed() {
         this.element.style.animationName = "flash_red";
         setTimeout(() => {this.element.style.animationName = ""}, 1000);
+    }
+
+    flashWhite() {
+        this.element.style.animationName = "flash_white";
+        this.element.style.animationDuration = "0.5s";
+        this.element.style.zIndex = "10";
+        setTimeout(() => {
+            this.element.style.animationName = "";
+            this.element.style.animationDuration = "1s";
+            this.element.style.zIndex = "initial";
+        }, 1000);
     }
 }
 
@@ -313,12 +333,27 @@ function buttonSetup() {
         let mines = 0;
         let grid = [0, 0];
 
-        mines_buttons.forEach((x) => {if (x.value && x.classList.contains("selected")) mines = Math.floor(x.value * _total)});
-        grid_buttons.forEach((x) => {if (x.value && x.classList.contains("selected")) grid = JSON.parse(x.value)});
+        grid_buttons.forEach((x) => {
+            if (x.value && x.classList.contains("selected")) {
+                const padding = 3 * 6;
+                const cell = 3 * 10;
+                const header = document.querySelector("header").clientHeight;
+                const width = document.documentElement.clientWidth - 2 * padding;
+                const height = document.documentElement.clientHeight - header - 2 * padding;
+                const max_grid = [Math.floor(width / cell) + 1, Math.floor(height / cell) + 1];
+
+                if (x.value == "full") {
+                    grid = max_grid;
+                } else {
+                    grid = JSON.parse(x.value)
+                    grid = [Math.min(grid[0], max_grid[0]), Math.min(grid[1], max_grid[1])];
+                }
+            }
+        });
+        mines_buttons.forEach((x) => {if (x.value && x.classList.contains("selected")) mines = Math.floor(x.value * grid[0] * grid[1])});
 
         fillGrid(generateGrid(grid[0], grid[1], mines));
     });
 }
 
-fillGrid(generateGrid(10, 10, 25));
 buttonSetup();

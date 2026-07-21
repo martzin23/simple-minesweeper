@@ -1,0 +1,135 @@
+
+.cell {
+    width: calc(8 * var(--pixel));
+    height: calc(8 * var(--pixel));
+    background-color: var(--darken);
+    image-rendering: pixelated;
+
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+}
+
+.cell::after {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-shadow: 2px 2px 0px black;
+    font-size: 1.25rem;
+}
+
+.cell.one::after {
+    color: hsl(165, 50%, 52%);
+    content: "1";
+}
+
+.cell.two::after {
+    color: hsl(240, 50%, 66%);
+    content: "2";
+}
+
+.cell.three::after {
+    color: hsl(268, 50%, 47%);
+    content: "3";
+}
+
+.cell.four::after {
+    color: hsl(285, 50%, 52%);
+    content: "4";
+}
+
+.cell.five::after {
+    color: hsl(73, 50%, 57%);
+    content: "5";
+}
+
+.cell.six::after {
+    color: hsl(36, 50%, 47%);
+    content: "6";
+}
+
+.cell.seven::after {
+    color: hsl(330, 50%, 60%);
+    content: "7";
+}
+
+.cell.eight::after {
+    color: hsl(0, 50%, 47%);
+    content: "8";
+}
+
+.cell.mine{
+    background-image: url(../images/mine.png);
+    background-size: calc(7 * var(--pixel));
+    background-repeat: no-repeat;
+    background-position: calc(0.5 * var(--pixel));
+}
+
+.cell.uncovered {
+    position: relative;
+    background-color: var(--light);
+    background-image: none;
+    border-bottom: var(--pixel) solid var(--dark);
+    border-right: var(--pixel) solid var(--dark);
+}
+
+.cell.uncovered::after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-top: var(--pixel) solid var(--highlight);
+    border-left: var(--pixel) solid var(--highlight);
+    content: "";
+}   
+
+.cell.flag{
+    background-image: url(../images/flag.png);
+    background-size: calc(7 * var(--pixel));
+    background-repeat: no-repeat;
+    background-position: calc(0.5 * var(--pixel)) var(--pixel);
+}
+
+/* ------------------------------------------------------ */
+
+@keyframes flash_green {
+    0% {
+        outline: var(--pixel) solid var(--green-light);
+    }
+    100% {
+        outline: var(--pixel) solid #ffffff00;
+    }
+}
+
+@keyframes flash_red {
+    0% {
+        outline: var(--pixel) solid var(--red-light);
+    }
+    100% {
+        outline: var(--pixel) solid #ffffff00;
+    }
+}
+
+@keyframes flash_white {
+    0% {outline: var(--pixel) solid white;}
+    10% {outline-offset: calc(0 * var(--pixel));}
+    11% {outline-offset: calc(2 * var(--pixel));}
+    20% {outline-offset: calc(2 * var(--pixel));}
+    21% {outline-offset: calc(4 * var(--pixel));}
+    30% {outline-offset: calc(4 * var(--pixel));}
+    31% {outline-offset: calc(6 * var(--pixel));}
+    40% {outline-offset: calc(6 * var(--pixel));}
+    41% {outline-offset: calc(8 * var(--pixel));}
+    50% {outline-offset: calc(8 * var(--pixel));}
+    51% {outline-offset: calc(10 * var(--pixel));}
+    60% {outline-offset: calc(10 * var(--pixel));}
+    61% {outline-offset: calc(12 * var(--pixel));}
+    70% {outline-offset: calc(12 * var(--pixel));}
+    71% {outline-offset: calc(14 * var(--pixel));}
+    80% {outline-offset: calc(14 * var(--pixel));}
+    81% {outline-offset: calc(16 * var(--pixel));}
+    99% {outline: var(--pixel) solid transparent;}
+    100% {outline: none;}
+}

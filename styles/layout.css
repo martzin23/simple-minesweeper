@@ -22,22 +22,7 @@ main {
 
 main>* {
     padding: calc(4 * var(--pixel));
-    /* padding-top: calc(2 * var(--pixel));
-    padding-bottom: calc(2 * var(--pixel)); */
 }
-
-/* main>*:first-child {
-    padding-top: calc(4 * var(--pixel));
-    padding-bottom: calc(4 * var(--pixel));
-}
-
-main>*:nth-child(2) {
-    padding-top: calc(4 * var(--pixel));
-}
-
-main>*:last-child {
-    padding-bottom: calc(4 * var(--pixel));
-} */
 
 /* ------------------------------------------------------ */
 
@@ -45,7 +30,6 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* justify-content: center; */
     align-items: stretch;
     gap: calc(4 * var(--pixel));
 
@@ -69,7 +53,8 @@ menu {
 li {
     display: flex;
     flex-direction: row;
-    gap: var(--pixel);
+    justify-content: space-between;
+    gap: calc(4 * var(--pixel));
 }
 
 li>p {
