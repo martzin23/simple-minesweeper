@@ -15,7 +15,8 @@
 <body>
     <main>
         <header>
-            <samp>
+            <p id="title">Minesweeper</p>
+            <samp id="indicator" class="hidden">
                 <div>
                     <div>
                         <img src="images/mine.png" alt="">
@@ -23,7 +24,7 @@
                     </div>
                 </div>
             </samp>
-            <button id="reset">
+            <button id="reset" class="hidden">
                 <div>
                     <img src="images/reset.png" alt="">
                 </div>
@@ -39,51 +40,54 @@
                 </div>
             </button>
         </header>
-        <div id="grid">
+        <div id="grid" class="hidden">
         </div>
-        <div id="menu">
-            <hr>
-            <li id="size">
+        <menu id="menu">
+            <li>
                 <p>Grid</p>
-                <button id="grid_small">
-                    <div>
-                        <p>Small</p>
-                    </div>
-                </button>
-                <button id="grid_large">
-                    <div>
-                        <p>Large</p>
-                    </div>
-                </button>
-                <button id="grid_full">
-                    <div>
-                        <p>Full</p>
-                    </div>
-                </button>
+                <div class="row gap-medium" id="switch_size">
+                    <button value="[8,12]" class="selected">
+                        <div>
+                            <p>Small</p>
+                        </div>
+                    </button>
+                    <button value="[16, 20]">
+                        <div>
+                            <p>Large</p>
+                        </div>
+                    </button>
+                    <button value="full">
+                        <div>
+                            <p>Full</p>
+                        </div>
+                    </button>
+                </div>
             </li>
             <hr>
-            <li id="mines">
+            <li>
                 <p>Mines</p>
-                <button id="mines_few">
-                    <div>
-                        <p>Few</p>
-                    </div>
-                </button>
-                <button class="selected" id="mines_lot">
-                    <div>
-                        <p>A lot</p>
-                    </div>
-                </button>
+                <div class="row gap-medium" id="switch_mines">
+                    <button value="0.1" class="selected">
+                        <div>
+                            <p>Few</p>
+                        </div>
+                    </button>
+                    <button value="0.25">
+                        <div>
+                            <p>A lot</p>
+                        </div>
+                    </button>
+                </div>
             </li>
             <hr>
-            <li class="hidden">
+            <li>
                 <button id="start" class="clickable">
                     <div>
                         <p>Start</p>
                     </div>
                 </button>
             </li>
-        </div>
+        </menu>
     </main>
 </body>
 </html>

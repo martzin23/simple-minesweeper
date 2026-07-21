@@ -252,20 +252,21 @@ function buttonSetup() {
     const menu_element = document.getElementById("menu");
     const grid_element = document.getElementById("grid");
     const reset_button = document.getElementById("reset");
+    const indicator_element = document.getElementById("indicator");
+    const title_element = document.getElementById("title");
+
     reset_button.addEventListener("click", (event) => {
-        menu_element.classList.add("hidden");
+        reset_button.classList.add("hidden");
+        menu_element.classList.remove("hidden");
         grid_element.classList.add("hidden");
+        indicator_element.classList.add("hidden");
+        title_element.classList.remove("hidden");
     });
+
     const maximize_button = document.getElementById("maximize");
     maximize_button.addEventListener("click", (event) => {toggleFullscreen();});
     const minimize_button = document.getElementById("minimize");
     minimize_button.addEventListener("click", (event) => {toggleFullscreen();});
-    const start_button = document.getElementById("start");
-    start_button.addEventListener("click", (event) => {
-        fillGrid(generateGrid(5, 5, 5));
-        menu_element.classList.add("hidden");
-        grid_element.classList.remove("hidden");
-    });
     
     ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach((eventType) => {
         document.addEventListener(eventType, () => {
@@ -285,15 +286,38 @@ function buttonSetup() {
         return this.splice(start, end);
     }
 
-    let grid_selector = document.getElementById("size");
-    let grid_buttons = Array.from(document.getElementById("size").children).subarray(1);
+    let grid_buttons = Array.from(document.getElementById("switch_size").children);
     grid_buttons.forEach((x) => {
         x.addEventListener("click", (event) => {
-            
+            grid_buttons.forEach((x) => {x.classList.remove("selected")});
+            x.classList.add("selected");
         });
     });
-    console.log(grid_buttons);
-    let mines_selector = document.getElementById("mines");
+
+    let mines_buttons = Array.from(document.getElementById("switch_mines").children);
+    mines_buttons.forEach((x) => {
+        x.addEventListener("click", (event) => {
+            mines_buttons.forEach((x) => {x.classList.remove("selected")});
+            x.classList.add("selected");
+        });
+    });
+
+    const start_button = document.getElementById("start");
+    start_button.addEventListener("click", (event) => {
+        menu_element.classList.add("hidden");
+        grid_element.classList.remove("hidden");
+        reset_button.classList.remove("hidden");
+        indicator_element.classList.remove("hidden");
+        title_element.classList.add("hidden");
+        
+        let mines = 0;
+        let grid = [0, 0];
+
+        mines_buttons.forEach((x) => {if (x.value && x.classList.contains("selected")) mines = Math.floor(x.value * _total)});
+        grid_buttons.forEach((x) => {if (x.value && x.classList.contains("selected")) grid = JSON.parse(x.value)});
+
+        fillGrid(generateGrid(grid[0], grid[1], mines));
+    });
 }
 
 fillGrid(generateGrid(10, 10, 25));

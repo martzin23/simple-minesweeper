@@ -9,6 +9,8 @@ body {
     align-items: center;
 }
 
+/* ------------------------------------------------------ */
+
 main {
     display: flex;
     flex-direction: column;
@@ -20,11 +22,11 @@ main {
 
 main>* {
     padding: calc(4 * var(--pixel));
-    padding-top: calc(2 * var(--pixel));
-    padding-bottom: calc(2 * var(--pixel));
+    /* padding-top: calc(2 * var(--pixel));
+    padding-bottom: calc(2 * var(--pixel)); */
 }
 
-main>*:first-child {
+/* main>*:first-child {
     padding-top: calc(4 * var(--pixel));
     padding-bottom: calc(4 * var(--pixel));
 }
@@ -35,7 +37,9 @@ main>*:nth-child(2) {
 
 main>*:last-child {
     padding-bottom: calc(4 * var(--pixel));
-}
+} */
+
+/* ------------------------------------------------------ */
 
 header {
     display: flex;
@@ -56,20 +60,19 @@ header {
     justify-content: center;
 }
 
-#menu {
+menu {
     display: flex;
     flex-direction: column;
     gap: calc(4 * var(--pixel));
 }
 
-#menu>li {
+li {
     display: flex;
     flex-direction: row;
-    align-items: end;
     gap: var(--pixel);
 }
 
-#menu>li>p {
+li>p {
     align-self: center;
 }
 
@@ -77,8 +80,4 @@ header {
     margin-left: calc(4 * var(--pixel));
     margin-right: calc(4 * var(--pixel));
     width: 100%;
-}
-
-#start>div {
-    justify-content: center;
 }

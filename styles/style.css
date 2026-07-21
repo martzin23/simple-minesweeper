@@ -25,6 +25,7 @@ button>div {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: var(--pixel);
 }
 
@@ -39,14 +40,13 @@ button:hover {
 }
 
 button.selected>div {
-    /* border-color: var(--green-medium);
-    background-color: var(--green-dark); */
-    border-color: var(--red-medium);
-    background-color: var(--red-dark);
+    border-color: var(--green-medium);
+    background-color: var(--green-dark);
+    /* border-color: var(--red-medium);
+    background-color: var(--red-dark); */
 }
 
 /* ------------------------------------------------------ */
-
 
 .clickable:hover {
     outline: var(--pixel) solid white;

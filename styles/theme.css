@@ -1,6 +1,8 @@
 :root {
     font-size: 16px;
     --pixel: 3px;
+    --packing: calc(2 * var(--pixel));
+    --spacing: calc(4 * var(--pixel));
 
     --light: #585858;
     --medium: #454545;
@@ -15,8 +17,4 @@
     --red-light: #FF005D;
     --red-medium: #c0026d;
     --red-dark: #6f0259;
-}
-
-.hidden {
-    display: none;
 }
