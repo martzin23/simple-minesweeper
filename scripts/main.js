@@ -39,8 +39,9 @@ class Cell {
         }
     }
 
-    reveal(user = true) {
+    reveal(user = true, explosion = false) {
         if (this.flagged && user) return;
+        if (this.revealed) return;
         this.element.classList.remove("uncovered");
         this.element.classList.remove("clickable");
         this.element.classList.remove("flag");
@@ -48,14 +49,8 @@ class Cell {
         this.revealed = true;
         if (user) _uncovered++;
         if (this.value == "mine" && user)
-            // this.floodFill((cell) => {
-            //     cell.reveal(false)
-            //     cell.flashRed(); 
-            // });
-            iterateGrid((cell) => {
-                cell.reveal(false);
-                cell.flashRed(); 
-            });
+            this.floodFill((cell) => {cell.reveal(false, true)}, () => true, true, 25);
+            // iterateGrid((cell) => {cell.reveal(false, true)});
         else if (this.value == "zero" && user)
             this.floodFill((cell) => {
                 cell.reveal(false); 
@@ -68,7 +63,10 @@ class Cell {
                 cell.element.classList.remove("clickable");
             });
         else
-            this.flashGreen();
+            if (!explosion)
+                this.flashGreen();
+            else
+                this.flashRed();
     }
 
     toggleFlag() {
@@ -79,42 +77,36 @@ class Cell {
         this.flashWhite();
     }
 
-    floodFill(lambda = (cell) => {}, condition = (cell) => true) {
+    floodFill(lambda = (cell) => {}, condition = (cell) => true, diagonal = false, delay = 50, limit = Infinity) {
         let current = this.neighbours;
         lambda(this);
-        let filled = {};
-        filled[this.id] = this;
-        let next = {};
-        let depth = 0;
-        // let counter = 0;
+        let filled = [this.id];
+        let next = [];
         
         let floodfill_step = () => {
-            console.log(countNonNull(current), current, filled);
-            if (depth > 10) return;
             if (current.length == 0) return;
             current.forEach((c, i) => {
                 if (!c) return;
                 lambda(c);
+                if (!filled.includes(c.id))
+                    filled.push(c.id);
+                else
+                    return
                 filled[c.id] = c;
                 if (!condition(c)) return;
-                // console.log(c.neighbours)
                 c.neighbours.forEach((n, i) => {
-                    if (!!n && !!filled[n.id]) {
+                    if (i%2 != 0 && !diagonal) return;
+                    if (!!n && !filled.includes(n.id)) {
                         console.log(!!filled[n.id], filled, n.id);
                         next[n.id] = n;
                     }
                 });
             });
-            // current = next;
             current = Object.values(next);
             next = {};
-            depth++;
-            // if (depth < 5)
-            //     setTimeout(floodfill_step, 500);
-            // else
-                floodfill_step();
+            setTimeout(floodfill_step, delay);
         }
-        setTimeout(floodfill_step, 500);
+        setTimeout(floodfill_step, delay);
     }
 
     flashGreen() {
