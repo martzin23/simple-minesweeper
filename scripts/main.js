@@ -80,7 +80,7 @@ class Cell {
 
     toggleFlag() {
         this.element.classList.toggle("flagged");
-        _game.counter_element.innerText = parseInt(_game.counter_element.innerText) + (this.isFlagged() ? -1 : 1);
+        _game.container_counter.innerText = parseInt(_game.container_counter.innerText) + (this.isFlagged() ? -1 : 1);
         this.flashWhite();
     }
 
@@ -150,10 +150,9 @@ class Game {
         this.total = 0;
         this.revealed = 0;
         this.grid = null;
-        this.grid_element = document.getElementById("grid");
-        this.counter_element = document.getElementById("counter_mines");
-        this.element_main = document.querySelector("main");
-
+        this.container_grid = document.getElementById("grid");
+        this.container_counter = document.getElementById("counter");
+        this.container_main = document.querySelector("main");
         this.buttonSetup();
     }
 
@@ -161,8 +160,8 @@ class Game {
         this.total = width * height;
         this.mines = mines;
         this.revealed = 0;
-        this.grid_element.innerHTML = "";
-        this.counter_element.innerText = mines;
+        this.container_grid.innerHTML = "";
+        this.container_counter.innerText = mines;
 
         let grid_values = [];
         for (let y=0; y<height; y++) {
@@ -196,11 +195,11 @@ class Game {
                     temp.push(new Cell(`x${x}y${y}`, cell));
                     cell.setAttribute("class", `cell unrevealed clickable`);
                 } 
-                this.grid_element.appendChild(cell);
+                this.container_grid.appendChild(cell);
             }
             grid_instances.push(temp);
         }
-        this.grid_element.style.gridTemplateColumns = `repeat(${grid_values[0].length}, auto)`;
+        this.container_grid.style.gridTemplateColumns = `repeat(${grid_values[0].length}, auto)`;
 
         for (let y=0; y<height; y++) {
             for (let x=0; x<width; x++) {
@@ -232,38 +231,38 @@ class Game {
     }
 
     buttonSetup() {
-        const menu_element = document.getElementById("menu");
-        const reset_button = document.getElementById("button_reset");
-        const indicator_element = document.getElementById("indicator");
-        const title_element = document.getElementById("title");
-        const maximize_button = document.getElementById("button_maximize");
-        const minimize_button = document.getElementById("button_minimize");
+        const container_menu = document.getElementById("menu");
+        const container_indicator = document.getElementById("indicator");
+        const container_title = document.getElementById("title");
+        const container_header = document.querySelector("header");
+        const button_reset = document.getElementById("button_reset");
+        const button_maximize = document.getElementById("button_maximize");
+        const button_minimize = document.getElementById("button_minimize");
+        const button_start = document.getElementById("button_start");
         const switch_mines = document.getElementById("switch_mines");
         const switch_size = document.getElementById("switch_size");
-        const start_button = document.getElementById("button_start");
-        const header_element = document.querySelector("header");
 
-        reset_button.addEventListener("click", (event) => {
+        button_reset.addEventListener("click", (event) => {
             _game.backgroundNeutral();
-            reset_button.classList.add("hidden");
-            menu_element.classList.remove("hidden");
-            this.grid_element.classList.add("hidden");
-            indicator_element.classList.add("hidden");
-            title_element.classList.remove("hidden");
+            button_reset.classList.add("hidden");
+            container_menu.classList.remove("hidden");
+            this.container_grid.classList.add("hidden");
+            container_indicator.classList.add("hidden");
+            container_title.classList.remove("hidden");
         });
 
-        maximize_button.addEventListener("click", (event) => {this.toggleFullscreen();});
-        minimize_button.addEventListener("click", (event) => {this.toggleFullscreen();});
+        button_maximize.addEventListener("click", (event) => {this.toggleFullscreen();});
+        button_minimize.addEventListener("click", (event) => {this.toggleFullscreen();});
         
         ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach((eventType) => {
             document.addEventListener(eventType, () => {
                 if (!this.isFullscreen()) {
-                    minimize_button.classList.add("hidden");
-                    maximize_button.classList.remove("hidden");
+                    button_minimize.classList.add("hidden");
+                    button_maximize.classList.remove("hidden");
                 }
                 else if (this.isFullscreen()) {
-                    minimize_button.classList.remove("hidden");
-                    maximize_button.classList.add("hidden");
+                    button_minimize.classList.remove("hidden");
+                    button_maximize.classList.add("hidden");
                 }
             })
         });
@@ -284,12 +283,12 @@ class Game {
             });
         });
 
-        start_button.addEventListener("click", (event) => {
-            menu_element.classList.add("hidden");
-            this.grid_element.classList.remove("hidden");
-            reset_button.classList.remove("hidden");
-            indicator_element.classList.remove("hidden");
-            title_element.classList.add("hidden");
+        button_start.addEventListener("click", (event) => {
+            container_menu.classList.add("hidden");
+            this.container_grid.classList.remove("hidden");
+            button_reset.classList.remove("hidden");
+            container_indicator.classList.remove("hidden");
+            container_title.classList.add("hidden");
             
             let mines = 0;
             let grid = [0, 0];
@@ -298,7 +297,7 @@ class Game {
                 if (x.value && x.classList.contains("selected")) {
                     const padding = 3 * 6;
                     const cell = 3 * 10;
-                    const header = header_element.clientHeight;
+                    const header = container_header.clientHeight;
                     const width = document.documentElement.clientWidth - 2 * padding;
                     const height = document.documentElement.clientHeight - header - 2 * padding;
                     const max_grid = [Math.floor(width / cell) + 1, Math.floor(height / cell) + 1];
@@ -341,20 +340,19 @@ class Game {
     }
 
     backgroundNeutral() {
-        this.element_main.style.backgroundColor = "var(--medium)";
-        this.element_main.style.borderColor = " var(--light)";
+        this.container_main.style.backgroundColor = "var(--medium)";
+        this.container_main.style.borderColor = " var(--light)";
     }
 
     backgroundRed() {
-        this.element_main.style.backgroundColor = "var(--red-dark)";
-        this.element_main.style.borderColor = " var(--red-medium)";
+        this.container_main.style.backgroundColor = "var(--red-dark)";
+        this.container_main.style.borderColor = " var(--red-medium)";
     }
 
     backgroundGreen() {
-        this.element_main.style.backgroundColor = "var(--green-dark)";
-        this.element_main.style.borderColor = " var(--green-medium)";
+        this.container_main.style.backgroundColor = "var(--green-dark)";
+        this.container_main.style.borderColor = " var(--green-medium)";
     }
-
 }
 
 let _game = new Game();
