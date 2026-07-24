@@ -22,42 +22,42 @@
 }
 
 .cell.one::after {
-    color: hsl(165, 50%, 52%);
+    color: hsl(165, 50%, 60%);
     content: "1";
 }
 
 .cell.two::after {
-    color: hsl(240, 50%, 66%);
+    color: hsl(211, 50%, 60%);
     content: "2";
 }
 
 .cell.three::after {
-    color: hsl(268, 50%, 47%);
+    color: hsl(36, 50%, 60%);
     content: "3";
 }
 
 .cell.four::after {
-    color: hsl(285, 50%, 52%);
+    color: hsl(73, 50%, 60%);
     content: "4";
 }
 
 .cell.five::after {
-    color: hsl(73, 50%, 57%);
+    color: hsl(268, 50%, 60%);
     content: "5";
 }
 
 .cell.six::after {
-    color: hsl(36, 50%, 47%);
+    color: hsl(330, 50%, 60%);
     content: "6";
 }
 
 .cell.seven::after {
-    color: hsl(330, 50%, 60%);
+    color: hsl(285, 50%, 60%);
     content: "7";
 }
 
 .cell.eight::after {
-    color: hsl(0, 50%, 47%);
+    color: hsl(0, 50%, 50%);
     content: "8";
 }
 
@@ -68,7 +68,7 @@
     background-position: calc(0.5 * var(--pixel));
 }
 
-.cell.uncovered {
+.cell.unrevealed {
     position: relative;
     background-color: var(--light);
     background-image: none;
@@ -76,7 +76,7 @@
     border-right: var(--pixel) solid var(--dark);
 }
 
-.cell.uncovered::after {
+.cell.unrevealed::after {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -85,7 +85,7 @@
     content: "";
 }   
 
-.cell.flag{
+.cell.flagged{
     background-image: url(../images/flag.png);
     background-size: calc(7 * var(--pixel));
     background-repeat: no-repeat;
@@ -133,3 +133,6 @@
     99% {outline: var(--pixel) solid transparent;}
     100% {outline: none;}
 }
+
+/* ------------------------------------------------------ */
+

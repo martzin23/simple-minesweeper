@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="styles/generic.css"/>
     <link rel="stylesheet" href="styles/variables.css"/>
     <link rel="stylesheet" href="styles/font.css"/>
-    <link rel="stylesheet" href="styles/flex.css"/>
     <script defer src="scripts/main.js"></script>
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
 </head>
 <body>
     <main>
@@ -19,23 +17,21 @@
             <p id="title">Simple Minesweeper</p>
             <samp id="indicator" class="hidden">
                 <div>
-                    <div>
-                        <img src="images/mine.png" alt="">
-                        <p id="mines">0</p>
-                    </div>
+                    <img src="images/mine.png" alt="">
+                    <p id="counter_mines">0</p>
                 </div>
             </samp>
-            <button id="reset" class="hidden">
+            <button id="button_reset" class="hidden">
                 <div>
                     <img src="images/reset.png" alt="">
                 </div>
             </button>
-            <button id="maximize">
+            <button id="button_maximize">
                 <div>
                     <img src="images/maximize.png" alt="">
                 </div>
             </button>
-            <button id="minimize" class="hidden">
+            <button id="button_minimize" class="hidden">
                 <div>
                     <img src="images/minimize.png" alt="">
                 </div>
@@ -46,13 +42,13 @@
         <menu id="menu">
             <li>
                 <p>Grid</p>
-                <div class="row gap-medium" id="switch_size">
-                    <button value="[8,10]" class="selected">
+                <div id="switch_size">
+                    <button value="[10,10]" class="selected">
                         <div>
                             <p>Small</p>
                         </div>
                     </button>
-                    <button value="[10, 16]">
+                    <button value="[15, 15]">
                         <div>
                             <p>Large</p>
                         </div>
@@ -67,7 +63,7 @@
             <hr>
             <li>
                 <p>Mines</p>
-                <div class="row gap-medium" id="switch_mines">
+                <div id="switch_mines">
                     <button value="0.1">
                         <div>
                             <p>Few</p>
@@ -87,7 +83,7 @@
             </li>
             <hr>
             <li>
-                <button id="start" class="clickable">
+                <button id="button_start" class="clickable">
                     <div>
                         <p>Start</p>
                     </div>

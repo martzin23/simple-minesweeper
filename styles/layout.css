@@ -15,9 +15,11 @@ main {
     display: flex;
     flex-direction: column;
     
+    outline: var(--pixel) solid black;
     background-color: var(--medium);
     border: var(--pixel) solid var(--light);
-    outline: var(--pixel) solid black;
+
+    transition: 1s background-color, 1s border-color;
 }
 
 main>* {
@@ -30,7 +32,6 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: stretch;
     gap: calc(4 * var(--pixel));
 
     background-color: var(--darken);
@@ -61,8 +62,18 @@ li>p {
     align-self: center;
 }
 
-#start {
+li>div {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    gap: calc(4 * var(--pixel));
+}
+
+#button_start {
     margin-left: calc(4 * var(--pixel));
     margin-right: calc(4 * var(--pixel));
     width: 100%;
 }
+
+/* ------------------------------------------------------ */
+

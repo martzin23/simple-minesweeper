@@ -10,6 +10,54 @@
 
 /* ------------------------------------------------------ */
 
+hr {
+    border: none;
+    border-top: var(--pixel) solid var(--light);
+    height: 0px;
+    width: 100%;
+}
+
+a:empty {
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+img {
+    width: calc(7 * var(--pixel));
+    image-rendering: pixelated;
+}
+
+samp {
+    border: var(--pixel) solid black;
+}
+
+samp>div {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: var(--dark);
+    border: var(--pixel) solid var(--medium);
+}
+
+p {
+    padding: 0px calc(2 * var(--pixel)) 0px calc(2 * var(--pixel));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ------------------------------------------------------ */
+
 button {
     position: relative;
     border: var(--pixel) solid black;
@@ -46,69 +94,16 @@ button.selected>div {
 
 /* ------------------------------------------------------ */
 
+.hidden {
+    display: none !important;
+}
+
 .clickable:hover {
     outline: var(--pixel) solid white;
     cursor: pointer;
 }
 
-hr {
-    border: none;
-    border-top: var(--pixel) solid var(--light);
-    height: 0px;
-    width: 100%;
-}
-
-a:empty {
-    z-index: 100;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-}
-
-img {
-    width: calc(7 * var(--pixel));
-    image-rendering: pixelated;
-}
-
-samp {
-    border: var(--pixel) solid black;
-}
-
-samp>div {
-    width: 100%;
-    height: 100%;
-
-    background-color: var(--darken);
-    /* border-top: var(--pixel) solid var(--dark);
-    border-left: var(--pixel) solid var(--dark); */
-}
-
-samp>div>div {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    /* border-bottom: var(--pixel) solid var(--light);
-    border-right: var(--pixel) solid var(--light); */
-    border: var(--pixel) solid var(--medium);
-    /* border-bottom: var(--pixel) solid var(--medium); */
-}
-
-p {
-    padding: 0px calc(2 * var(--pixel)) 0px calc(2 * var(--pixel));
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 /* ------------------------------------------------------ */
-
 
 @media screen and (max-width: 1024px) {
     button:hover {
@@ -119,3 +114,6 @@ p {
         outline: none;
     }
 }
+
+/* ------------------------------------------------------ */
+
