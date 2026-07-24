@@ -51,17 +51,16 @@ class Cell {
             }, () => true, true, 25);
         } else {
             this.flashGreen();
-            _game.revealed++;
             if (this.element.value === "zero")
                 this.floodFill((cell) => {
                     if (cell.isRevealed()) return;
                     cell.flashGreen();
-                    _game.revealed++;
                     cell.reveal();
-                    if (_game.revealed >= _game.total - _game.mines) 
+                }, (cell) => {return cell.element.value === "zero"}, true, 50, () => {
+                    if (_game.countUnrevealed() === _game.mines) 
                         _game.backgroundGreen();
-                }, (cell) => {return cell.element.value === "zero"}, true);
-            if (_game.revealed >= _game.total - _game.mines) {
+                });
+            if (_game.countUnrevealed() === _game.mines) {
                 _game.backgroundGreen();
                 this.floodFill((cell) => {
                     cell.flashGreen(); 
@@ -84,14 +83,17 @@ class Cell {
         this.flashWhite();
     }
 
-    floodFill(lambda = (cell) => {}, condition = (cell) => true, diagonal = false, delay = 50) {
+    floodFill(lambda = (cell) => {}, condition = (cell) => true, diagonal = false, delay = 50, finish = () => {}) {
         let current = this.neighbours;
         lambda(this);
         let filled = [this.id];
         let next = [];
         
         let floodfill_step = () => {
-            if (current.length == 0) return;
+            if (current.length == 0) {
+                finish();
+                return;
+            } 
             current.forEach((c, i) => {
                 if (!c) return;
                 lambda(c);
@@ -148,7 +150,6 @@ class Game {
     constructor() {
         this.mines = 0;
         this.total = 0;
-        this.revealed = 0;
         this.grid = null;
         this.container_grid = document.getElementById("grid");
         this.container_counter = document.getElementById("counter");
@@ -159,7 +160,6 @@ class Game {
     generateGrid(width, height, mines) {
         this.total = width * height;
         this.mines = mines;
-        this.revealed = 0;
         this.container_grid.innerHTML = "";
         this.container_counter.innerText = mines;
 
@@ -352,6 +352,17 @@ class Game {
     backgroundGreen() {
         this.container_main.style.backgroundColor = "var(--green-dark)";
         this.container_main.style.borderColor = " var(--green-medium)";
+    }
+
+    countUnrevealed() {
+        let counter = 0;
+        this.grid.forEach((column) => {
+            column.forEach((cell) => {
+                if (cell.element.classList.contains("unrevealed"))
+                    counter++;
+            });
+        });
+        return counter;
     }
 }
 
