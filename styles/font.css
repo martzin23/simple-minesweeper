@@ -1,24 +1,24 @@
 
 @font-face {
     font-family: minecraft;
-    src: url(../fonts/minecraft.otf);
+    src: url(../fonts/mojangles.otf);
 }
 
 @font-face {
     font-family: minecraft;
-    src: url(../fonts/minecraft_bold.otf);
+    src: url(../fonts/mojangles_bold.otf);
     font-weight: bold;
 }
 
 @font-face {
     font-family: minecraft;
-    src: url(../fonts/minecraft_italic.otf);
+    src: url(../fonts/mojangles_italic.otf);
     font-style: italic;
 }
 
 @font-face {
     font-family: minecraft;
-    src: url(../fonts/minecraft_bold_italic.otf);
+    src: url(../fonts/mojangles_bold_italic.otf);
     font-weight: bold;
     font-style: italic;
 }
